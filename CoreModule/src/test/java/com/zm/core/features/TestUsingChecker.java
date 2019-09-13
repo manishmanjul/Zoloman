@@ -8,12 +8,12 @@ public class TestUsingChecker extends TestCase{
 
 	@Test
 	public void testPassingFunctionalInterfaceToMethod() {
-		UsingChecker c = new UsingChecker();
+		FunctionalInterfaceInAction c = new FunctionalInterfaceInAction();
 		assertTrue(takeFunctional(c.getChecker()));
 	}
 	
 	
 	private boolean takeFunctional(Checker<String> c) {
-		return c.check("Hortan");
+		return c.check("Sholey123");
 	}
 }
