@@ -78,14 +78,14 @@ public class FunctionalInterfaceInAction {
 		producer = () -> {
 			StringBuffer result = new StringBuffer();
 			Random random = new Random();
-			int pwdLength = random.nextInt(6)+5;
+			int pwdLength = random.nextInt(Producer.PASSWORD_LENGTH-2)+5;
 			
 			for(int i=1;i<=pwdLength;i++) {
 				int alphaOrNumber = random.nextInt(2);
 				if(alphaOrNumber==Producer.GENERATE_ALPHA)
-					result.append(Producer.alpha.charAt(random.nextInt(52)));
+					result.append(Producer.alpha.charAt(random.nextInt(Producer.ALPHABET_COUNT)));
 				else if(alphaOrNumber==Producer.GENERATE_NUMERIC)
-					result.append(Producer.numbers.charAt(random.nextInt(10)));
+					result.append(Producer.numbers.charAt(random.nextInt(Producer.NUMERIC_COUNT)));
 			}
 			return result.toString();
 		};
@@ -93,8 +93,10 @@ public class FunctionalInterfaceInAction {
 	
 	private void initAcceptor() {
 		acceptor = t -> {
-			if(checker.check(t))
-				validPwdList.add(taskPerformer.perform(t));
+			if(checker.check(t)) {
+				String s = taskPerformer.perform(t);
+				validPwdList.add(s);
+			}				
 			else
 				invalidPwdList.add(t);
 		};
@@ -103,21 +105,19 @@ public class FunctionalInterfaceInAction {
 	private void initTaskPerformer() {
 		taskPerformer = t -> {
 			Random random = new Random();
-			String specialChar = "!@#$%&*";
-			char c =  specialChar.charAt(random.nextInt(7));
-			int charAt = random.nextInt(8);
 			char[] stringInArray = t.toCharArray();
-			stringInArray[charAt] = c;
-			return stringInArray.toString(); 
+			stringInArray[random.nextInt(Producer.PASSWORD_LENGTH)] = 
+					TaskPerformer.SPECIAL_CHARS.charAt(random.nextInt(TaskPerformer.SPECIAL_CHAR_COUNT));
+			return String.valueOf(stringInArray); 
 		};
 	}
 	
 	private void initChecker() {
-		checker = t -> t.length() == 8;
+		checker = t -> t.length() == Checker.LENGTH_TO_CHECK;
 	}
 	
 	private void initFinalChecker() {
-		finalChecker = l -> l.size()<10?true:false;
+		finalChecker = l -> l.size()<Checker.MAX_PWD_COUNT?true:false;
 	}
 	
 	public static void main(String args[]) {
