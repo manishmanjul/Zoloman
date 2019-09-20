@@ -18,11 +18,11 @@ public class CustomCollectionSort<E>{
 		objectComparator = (e1,e2) -> e1.isBiggerThan(e2);
 	}
 	
-	public void sort(List<Integer> myList){
+	public void sort(List myList){
 		Comparator<Integer> c = (i1,i2) -> (i1<i2)?1:(i1>i2)?-1:0;	
 		Collections.sort(myList,c);
 		
-		for(Integer i : myList)
+		for(Integer i : (List<Integer>)myList)
 			System.out.println(i);
 	}
 	

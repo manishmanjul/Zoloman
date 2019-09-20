@@ -1,14 +1,18 @@
-package com.zm.core.test;
-
-import java.util.Comparator;
-
-import com.zm.core.features.CustomComparator;
+package com.zm.core.features;
 
 public class Employe implements CustomComparator<Employe>{
 
+	public static int BASEID = 0;
 	int id ;
 	String name;
 	
+	
+	public Employe() {}
+	
+	public Employe(String name) {
+		this.id = Employe.BASEID++;
+		this.name = name;
+	}
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -21,7 +25,23 @@ public class Employe implements CustomComparator<Employe>{
 		if(this.name.equals(e.name)) return true; else return false;
 		
 	}
-	
+		
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	@Override
 	public int hashCode() {
 		
