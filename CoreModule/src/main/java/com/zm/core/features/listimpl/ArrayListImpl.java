@@ -45,9 +45,11 @@ public class ArrayListImpl {
 		populateArrayList();
 	}
 	
-	private void testListIterator() {
+	private void testSpliterator() {
 		
-		
+	}
+	
+	private void testListIterator() {		
 		
 		System.out.println("\n==================Testing LIST ITERATOR Method =============\n");
 		ListIterator<Employe> lIt = objList.listIterator();
