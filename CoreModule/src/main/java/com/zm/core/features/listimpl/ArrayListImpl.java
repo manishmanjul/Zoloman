@@ -3,7 +3,10 @@ package com.zm.core.features.listimpl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
+import com.zm.core.features.Counter;
 import com.zm.core.features.Employe;
 
 public class ArrayListImpl {
@@ -11,8 +14,8 @@ public class ArrayListImpl {
 	List<Integer> intList = new ArrayList<Integer>();
 	List<String> strList = new ArrayList<String>();
 	List<Employe> objList = new ArrayList<Employe>();
-	private static int COUNTER = 1;
-	
+	Counter counter = new Counter();
+
 	// Add values to the list.
 	private void populateArrayList() {
 		intList.add(new Integer(5));
@@ -30,7 +33,6 @@ public class ArrayListImpl {
 		strList.add("Iris");
 		strList.add("Ralph");
 		strList.add("Gypsy");
-		
 		objList.add(new Employe("Oliver Queen"));
 		objList.add(new Employe("Falicity Smoke"));
 		objList.add(new Employe("Thea Queen"));
@@ -46,6 +48,46 @@ public class ArrayListImpl {
 	}
 	
 	private void testSpliterator() {
+		
+		System.out.println("\n==================Testing Spliterator Method & Interface =============\n");
+		ListIterator<Employe> lIt = objList.listIterator();
+		Spliterator<Employe> empSplit = objList.spliterator();
+		
+		Consumer<Employe> c = e-> System.out.println(counter.getNextCounter() + ". " + e.getName());
+		
+		System.out.println("Print Entire object list using forEachRemaing() of the ListIterator NOT the Spliterator.");
+		counter.resetCounter();
+		lIt.forEachRemaining(c);
+		
+		
+		System.out.println("\nRemaining elements b4 calling the forEachRemaining() of Spliterator : - " + empSplit.estimateSize());
+		System.out.println("Move the cursor 4 steps forward...");
+		counter.resetCounter();
+		empSplit.tryAdvance(c);
+		empSplit.tryAdvance(c);
+		empSplit.tryAdvance(c);
+		empSplit.tryAdvance(c);
+		
+		System.out.println("\nRemaining elements after moving 4 steps forward : - " + empSplit.estimateSize());
+		System.out.println("\nProcess using forEachRemaining()....");
+		
+		empSplit.forEachRemaining(c);
+		
+		System.out.println("\nRemaining elements after forEachRemainng() : - " + empSplit.estimateSize());
+		System.out.println("TrySplit().......");
+		empSplit = objList.spliterator();
+		Spliterator<Employe> empSplit2 = empSplit.trySplit();
+		System.out.println("First spliterator....");
+		counter.resetCounter();
+		empSplit.forEachRemaining(c);
+		System.out.println("Spliterator 2.....");
+		counter.resetCounter();
+		empSplit2.forEachRemaining(c);
+		System.out.println("\n 1. estimateSize() always returns the count of elements that the next call to forEachRemaning() will have to encounter."
+				+ "\n 2. tryAdvance(Consumer) is used to rocess each element. It is a compination of hasNext() & next()"
+				+ "\n 3. There is no backwards processing like previous()"
+				+ "\n 4. Calling forEachReamaining() of ListIterator does not any effect on the forEachRemaining() of Spliterator. "
+				+ "\n 5. trySplit() splits the list in 2 equal halfs. In case the size of list is odd, the parent spliterator will have one higher count of items.");
 		
 	}
 	
@@ -70,8 +112,8 @@ public class ArrayListImpl {
 		
 		System.out.println("Remove current item and print all remaining items using forEachRemaining....");
 		lIt.remove();
-		ArrayListImpl.setCounter(lIt.nextIndex());
-		lIt.forEachRemaining(i -> System.out.println(ArrayListImpl.getNextCounter() + ". " + i.getName()));
+		counter.setCounter(lIt.nextIndex());
+		lIt.forEachRemaining(i -> System.out.println(counter.getNextCounter() + ". " + i.getName()));
 		
 		System.out.println("Print entire list by traversing backwards....");
 		while(lIt.hasPrevious())
@@ -144,17 +186,6 @@ public class ArrayListImpl {
 		arrayListImpl.testContains();
 		arrayListImpl.testSubList();
 		arrayListImpl.testListIterator();
-	}
-	
-	public static int getNextCounter() {
-		return COUNTER++;
-	}
-	
-	public static void resetCounter() {
-		COUNTER = 1;
-	}
-	
-	public static void setCounter(int val) {
-		COUNTER = val;
+		arrayListImpl.testSpliterator();
 	}
 }

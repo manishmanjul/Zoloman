@@ -10,6 +10,8 @@ public interface Producer <T>{
 	public static final int PASSWORD_LENGTH = 8;
 	public static final int ALPHABET_COUNT = 52;
 	public static final int NUMERIC_COUNT = 10;
+	public int COUNTER = 1;
 	
 	T produce();
+	
 }
