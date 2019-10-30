@@ -1,6 +1,7 @@
 package com.zm.core.features.mapimpl;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Iterator;
 
 /**
@@ -13,11 +14,11 @@ public class MapImpl {
 
 	public static void main(String args[]) {
 
-		HashMap<Key, Integer> myMap = new HashMap<Key, Integer>();
+		Hashtable<Key, Integer> myMap = new Hashtable<Key, Integer>();
 		myMap.put(new Key("Manish"), 2);
 		myMap.put(new Key("Nitu"), 6);
 		myMap.put(new Key("Abhishek"), 1);
-		myMap.put(new Key("Oaunav"), 7);
+		myMap.put(new Key("Raunav"), 7);
 		myMap.put(new Key("Manjul"), 3);
 		myMap.put(new Key("Maanjul"), 4);
 		myMap.put(new Key("Mzmanjul"), 5);
@@ -25,7 +26,7 @@ public class MapImpl {
 		Iterator<Key> it = myMap.keySet().iterator();
 		while(it.hasNext()) {
 			Key k = it.next();
-			System.out.println(k.getKeyStr() + " : " + myMap.get(k) + " hash : " + k.hashCode() + " index : " + (k.hashCode() & 15));
+			System.out.println(k.getKeyStr() + " : " + myMap.get(k) + " hash : " + k.hashCode() + " index : " + (k.hashCode() & 10));
 		}
 	}
 }
