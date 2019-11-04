@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	This is the feedback page
+	Welcome to the HOME PAGE ${obj.aid} , ${obj.aName}, ${obj.sTech}
 </body>
 </html>

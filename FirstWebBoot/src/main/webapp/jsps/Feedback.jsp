@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	This is the home page
+	Help us improve with your valuable feedback.
 </body>
 </html>
