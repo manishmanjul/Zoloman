@@ -16,13 +16,26 @@
 		<input type = "submit">
 	</form>
 	
-	<br><br>
+	<br>
 	<h4>Find an Alien by ID</h4>
 	<form action="getAlien">
 		Alien ID: <input type ="text" name = aid>
 		<input type="submit">
 	</form>	
 	
+	<br>
+	<h4>Find an Alien by Tech</h4>
+	<form action="findByTech">
+		Tech: <input type ="text" name = tech>
+		<input type="submit">
+	</form>	
+	
+	<br>
+	<h4>Find an Alien Name matching</h4>
+	<form action="findByNameLike">
+		Name <input type ="text" name = name>
+		<input type="submit">
+	</form>	
 	
 	<br><br>
 	<h4>Find and Delete Alien by ID</h4>
@@ -33,7 +46,7 @@
 		${status}
 	</form>	
 	
-	<br><br>
+	<br>
 	<h4>Find and Update Alien by ID</h4>
 	<form action="findAlien">
 		Alien ID: <input type ="text" name = aid>
